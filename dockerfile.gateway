@@ -1,0 +1,23 @@
+# Use a minimal Python image
+FROM python:3.11-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Copy the requirements file
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the FastAPI application code
+COPY . /app
+
+# Expose the port the FastAPI gateway will run on
+EXPOSE 8001
+
+# Set the entrypoint for running the FastAPI app
+ENTRYPOINT ["uvicorn", "api-gateway:app", "--host", "0.0.0.0", "--port", "8001"]

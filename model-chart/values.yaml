@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/sameerasandeepa/devopsengineer-assignment-model
+  pullPolicy: Always
+  tag: v2
+
+service:
+  type: ClusterIP
+  port: 8080
+
+
+serviceAccount:
+  create: true
+  name: "model-service-account"
+  
+ingress:
+  enabled: false
+
+labels:
+  app: kserve  # Add this label
+
+autoscaling:
+  enabled: true  # Set this to true or false based on your requirement
+  minReplicas: 2
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80

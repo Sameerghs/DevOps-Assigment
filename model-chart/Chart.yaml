@@ -1,0 +1,4 @@
+apiVersion: v2
+name: model
+description: A Helm chart for the OCR model service
+version: 0.1.0

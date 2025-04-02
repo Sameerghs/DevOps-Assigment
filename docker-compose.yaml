@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  model:
+    build:
+      context: ./ocr_model  # Change this to point to the correct directory
+      dockerfile: dockerfile.model
+    container_name: model-ocr-container
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  api-gateway:
+    build:
+      context: .  # This is fine since Dockerfile.gateway is in the current directory
+      dockerfile: dockerfile.gateway
+    container_name: api-gateway-container
+    ports:
+      - "8001:8001"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

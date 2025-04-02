@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: model-api
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  source:
+    # Directly using the Docker image in the container
+    repository: docker.io/sameerasandeepa/devopsengineer-assignment-api-gateway
+    targetRevision: v1.0
+    chart: ""
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
